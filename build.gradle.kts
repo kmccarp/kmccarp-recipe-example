@@ -1,32 +1,12 @@
-import nebula.plugin.contacts.Contact
-import nebula.plugin.contacts.ContactsExtension
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.util.*
-
 plugins {
     `java-library`
-
+    `maven-publish`
     id("org.jetbrains.kotlin.jvm") version "1.5.21"
-    id("nebula.release") version "15.3.1"
-
-    id("nebula.maven-manifest") version "17.3.2"
-    id("nebula.maven-nebula-publish") version "17.3.2"
-    id("nebula.maven-resolved-dependencies") version "17.3.2"
-
-    id("nebula.contacts") version "5.1.0"
-    id("nebula.info") version "9.3.0"
-
-    id("nebula.javadoc-jar") version "17.3.2"
-    id("nebula.source-jar") version "17.3.2"
 }
 
-apply(plugin = "nebula.publish-verification")
-
-configure<nebula.plugin.release.git.base.ReleasePluginExtension> {
-    defaultVersionStrategy = nebula.plugin.release.NetflixOssStrategies.SNAPSHOT(project)
-}
 
 group = "com.mycompany.rewrite"
+version = "0.1.0-SNAPSHOT"
 description = "Example Rewrite recipes."
 
 repositories {
@@ -69,21 +49,12 @@ tasks.named<Test>("test") {
     jvmArgs = listOf("-XX:+UnlockDiagnosticVMOptions", "-XX:+ShowHiddenFrames")
 }
 
-configure<ContactsExtension> {
-    val j = Contact("team@moderne.io")
-    j.moniker("Team Moderne")
-    people["team@moderne.io"] = j
-}
-
-configure<PublishingExtension> {
+publishing {
     publications {
-        named("nebula", MavenPublication::class.java) {
-            suppressPomMetadataWarningsFor("runtimeElements")
+        create<MavenPublication>("library") {
+            from(components["java"])
         }
     }
-}
-
-publishing {
     repositories {
         maven {
             url = uri("http://localhost:9081/artifactory/example-maven/")

@@ -1,3 +1,3 @@
-rootProject.name = "rewrite-recipe-example2"
+rootProject.name = "rewrite-recipe-example"
 
 enableFeaturePreview("VERSION_ORDERING_V2")
