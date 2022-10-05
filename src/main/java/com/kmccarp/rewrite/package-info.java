@@ -15,7 +15,7 @@
  */
 @NonNullApi
 @NonNullFields
-package com.mycompany.rewrite;
+package com.kmccarp.rewrite;
 
 import org.openrewrite.internal.lang.NonNullApi;
 import org.openrewrite.internal.lang.NonNullFields;
