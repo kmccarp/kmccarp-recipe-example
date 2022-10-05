@@ -1,5 +1,6 @@
 plugins {
     `java-library`
+    java
     `maven-publish`
     id("org.jetbrains.kotlin.jvm") version "1.5.21"
 }
@@ -22,6 +23,11 @@ configurations.all {
         cacheChangingModulesFor(0, TimeUnit.SECONDS)
         cacheDynamicVersionsFor(0, TimeUnit.SECONDS)
     }
+}
+
+configure<JavaPluginExtension> {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 val rewriteVersion = "latest.release"
