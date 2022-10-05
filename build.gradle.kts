@@ -5,7 +5,7 @@ plugins {
 }
 
 
-group = "com.mycompany.rewrite"
+group = "com.kmccarp.recipe.example"
 version = "0.1.0-SNAPSHOT"
 description = "Example Rewrite recipes."
 
@@ -48,22 +48,3 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
     jvmArgs = listOf("-XX:+UnlockDiagnosticVMOptions", "-XX:+ShowHiddenFrames")
 }
-
-publishing {
-    publications {
-        create<MavenPublication>("library") {
-            from(components["java"])
-        }
-    }
-    repositories {
-        maven {
-            url = uri("http://localhost:9081/artifactory/example-maven/")
-            isAllowInsecureProtocol = true
-            credentials {
-                username = "admin"
-                password = "1zrwpRrPeECeg9ob"
-            }
-        }
-    }
-}
-
