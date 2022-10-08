@@ -22,14 +22,14 @@ import java.time.format.DateTimeParseException;
 @EqualsAndHashCode(callSuper = false)
 public class FindDates extends Recipe {
     @Override
-    public String getDisplayName() {
+    public /*~~>*/String getDisplayName() {
         return "Renames variables with name `x` to `awesome`. Yeah!";
     }
 
     @Option(displayName = "Date",
             description = "The date to search for. Accepts both `yyyy-mm-dd` and epoch second formats.",
             example = "2020-01-01")
-    String date;
+    /*~~>*/String date;
 
     @Nullable
     private LocalDate getParsedDate() {
@@ -55,7 +55,7 @@ public class FindDates extends Recipe {
                     return a;
                 }
                 // if attribute value matches date, add search marker
-                String valueAsString = a.getValueAsString();
+                /*~~>*/String valueAsString = a.getValueAsString();
                 if (valueAsString.equals(parsedDate.toString()) || valueAsString.equals(Long.toString(parsedDate.toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC)))) {
                     return a.withMarkers(a.getMarkers().searchResult("Found date"));
                 }

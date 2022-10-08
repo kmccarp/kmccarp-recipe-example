@@ -10,7 +10,7 @@ class FindDatesTest implements RewriteTest {
 
     @ParameterizedTest
     @CsvSource({"2020-01-01, 2020-01-01", "2020-01-01, 1577836800","1577836800, 2020-01-01", "1577836800, 1577836800"})
-    void findsDatesWithYyyyMmDd(String inputDate, String xmlDate) {
+    void findsDatesWithYyyyMmDd(/*~~>*/String inputDate, /*~~>*/String xmlDate) {
         rewriteRun(
                 spec -> spec.recipe(new FindDates(inputDate)),
                 xml("" +
