@@ -3,11 +3,12 @@ plugins {
     java
     `maven-publish`
     id("org.jetbrains.kotlin.jvm") version "1.5.21"
+    id("io.moderne.rewrite") version "0.29.0"
 }
 
 
 group = "com.kmccarp.recipe.example"
-version = "0.1.0-SNAPSHOT"
+version = "0.2.0-SNAPSHOT"
 description = "Example Rewrite recipes."
 
 repositories {
@@ -30,7 +31,7 @@ configure<JavaPluginExtension> {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-val rewriteVersion = "latest.release"
+val rewriteVersion = "7.29.0"
 
 dependencies {
     compileOnly("org.projectlombok:lombok:latest.release")
@@ -38,6 +39,7 @@ dependencies {
 
     implementation("org.openrewrite:rewrite-java:${rewriteVersion}")
     implementation("org.openrewrite:rewrite-xml:${rewriteVersion}")
+    implementation("org.openrewrite:rewrite-maven:${rewriteVersion}")
     runtimeOnly("org.openrewrite:rewrite-java-11:${rewriteVersion}")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:latest.release")
@@ -54,6 +56,15 @@ tasks.named<Test>("test") {
 }
 
 publishing {
+    repositories {
+        maven {
+            url = uri("https://artifactory.moderne.ninja/artifactory/kevin-local/")
+            credentials {
+                username = property("artifactory.username").toString()
+                password = property("artifactory.password").toString()
+            }
+        }
+    }
     publications {
         create<MavenPublication>("library") {
             from(components["java"])
